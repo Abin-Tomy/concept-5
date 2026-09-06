@@ -1,0 +1,86 @@
+/* ─────────────────────────────────────────────
+   Concept 2 – Global Design System
+   ───────────────────────────────────────────── */
+
+@font-face {
+    font-family: 'Boldonse';
+    src: url('/fonts/Boldonse.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans Flex';
+    src: url('/fonts/GoogleSansFlex.ttf') format('truetype');
+    font-weight: 100 1000;
+    font-style: normal;
+}
+
+/* ── CSS Custom Properties ─────────────────── */
+:root {
+  /* Brand colours */
+  --c-bg:          #d8e4ee;
+  --c-bg-soft:     #c8d8e8;
+  --c-surface:     rgba(255, 255, 255, 0.72);
+  --c-surface-hov: rgba(255, 255, 255, 0.88);
+  --c-border:      rgba(255, 255, 255, 0.55);
+  --c-border-dark: rgba(0, 45, 95, 0.14);
+
+  --c-ink:         #000000;
+  --c-ink-muted:   #242424;
+  --c-ink-light:   #666666;
+
+  --c-brand:       #342F89;
+  --c-brand-mid:   #252166;
+  --c-accent:      #0070f3;
+
+  /* Typography */
+  --f-display: 'Boldonse', sans-serif;
+  --f-body:    'Google Sans Flex', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Z-index scale */
+  --z-bg:    0;
+  --z-base:  10;
+  --z-mid:   20;
+  --z-top:   30;
+  --z-nav:   50;
+  --z-modal: 100;
+}
+
+/* ── Reset & Base ──────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: auto;
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--c-bg);
+  color: var(--c-ink);
+  font-family: var(--f-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video, canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}

@@ -1,0 +1,323 @@
+/* ─────────────────────────────────────────────
+   Hero.module.css — Concept 5
+   ───────────────────────────────────────────── */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: var(--c-bg, #d8e4ee);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* The video canvas container */
+.heroInner {
+  position: relative;
+  width: calc(100% - 16px);
+  height: calc(100vh - 16px);
+  margin-top: 8px;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 8px 40px rgba(0, 45, 95, 0.12);
+  /* NO isolation:isolate — would break stacking */
+  flex-shrink: 0;
+}
+
+/* ── Canvas ── */
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── UI overlay — sits ABOVE heroInner as a sibling ── */
+/* backdrop-filter now blurs heroInner (the canvas div) correctly */
+.uiOverlay {
+  position: absolute;
+  /* Match heroInner exactly */
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  bottom: 0;
+  border-radius: 22px;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+/* ────────────────────────────────────────────
+   SLIDE ELEMENTS
+   ──────────────────────────────────────────── */
+
+.slideWrapper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* LEFT: Heading */
+.headingContent {
+  position: absolute;
+  top: 38%;
+  left: 5vw;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  will-change: opacity, transform;
+}
+
+.mega {
+  display: block;
+  /* Bebas Neue — premium condensed display, used by luxury/tech brands globally */
+  font-family: 'Bebas Neue', 'Syne', sans-serif;
+  font-weight: 400; /* Bebas Neue is single-weight, always looks bold */
+  line-height: 0.95; /* Tight for display */
+  letter-spacing: 0.04em; /* Bebas Neue looks best with slight tracking */
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.40);
+}
+
+.megaMD {
+  font-size: clamp(52px, 7.5vw, 120px); /* Bebas Neue is condensed so can go bigger */
+}
+
+/* ────────────────────────────────────────────
+   3D GLASS CARD (From Uiverse.io by chase2k25)
+   ──────────────────────────────────────────── */
+
+.cardParent {
+  position: absolute;
+  right: 5vw;
+  bottom: 12vh;
+  width: 320px;
+  height: 320px;
+  perspective: 1200px;
+  pointer-events: auto;
+  will-change: opacity, transform;
+  z-index: 25;
+}
+
+/* 3D Container wrapping both pieces */
+.mockupContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 20px 45px rgba(0, 0, 0, 0.28));
+}
+
+.cardParent:hover .mockupContainer {
+  transform: rotate3d(1, -1, 0, 16deg) translateY(-4px);
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.38));
+}
+
+/* ── Main Scooped Glass Card ── */
+.mainCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  clip-path: path('M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z');
+  background: rgba(18, 18, 26, 0.65);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+/* Specular glass shine sweep across main card */
+.mainCard::after {
+  content: '';
+  position: absolute;
+  width: 160%;
+  top: 100%;
+  left: -100%;
+  height: 12px;
+  background: #ffffff;
+  transform: rotateZ(50deg);
+  filter: blur(28px);
+  animation: cardShine 10s ease infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes cardShine {
+  0% {
+    top: 100%;
+    left: -100%;
+  }
+  50%,
+  100% {
+    top: 0%;
+    left: 70%;
+  }
+}
+
+/* ── Sub-Card (Bottom-right pill) ── */
+.subCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  clip-path: path('M 205,250 L 296,250 A 16,16 0 0,1 316,270 L 316,286 A 20,20 0 0,1 296,306 L 178,306 A 18,18 0 0,1 162,292 C 158,282 165,274 175,264 L 192,254 A 14,14 0 0,1 205,250 Z');
+  background: rgba(18, 18, 26, 0.65);
+  backdrop-filter: blur(28px) saturate(190%);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  overflow: hidden;
+  transform-style: preserve-3d;
+}
+
+/* SVG Rim & Surface Lighting */
+.cardSvg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 320px;
+  height: 320px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Content inside main card ── */
+.mainCardBody {
+  position: absolute;
+  inset: 0;
+  padding: 32px 28px 24px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 16px;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.topRow {
+  display: flex;
+  align-items: center;
+}
+
+.slideTopic {
+  font-family: 'Google Sans Flex', 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffffff;
+  line-height: 1.2;
+}
+
+.descSection {
+  max-width: 260px;
+}
+
+.cardDesc {
+  font-family: 'Google Sans Flex', 'Inter', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.65;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.90);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+/* ── Sub-card text (01 / 05) ── */
+.subCardBody {
+  position: absolute;
+  left: 165px;
+  top: 250px;
+  width: 150px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.subCardText {
+  font-family: 'Google Sans Flex', 'Inter', monospace, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* ── CTA Pill ── */
+.ctaWrap {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.ctaPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 34px;
+  border-radius: 9999px;
+  border: 1px solid rgba(52, 47, 137, 0.40);
+  background: rgba(52, 47, 137, 0.60);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  color: #ffffff;
+  font-family: 'Google Sans Flex', 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaPill:hover {
+  background: rgba(52, 47, 137, 0.85);
+  transform: translateY(-3px);
+}
+
+.ctaArrowIcon {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ctaPill:hover .ctaArrowIcon {
+  transform: translate(2px, -2px);
+}
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .headingContent {
+    top: 22%;
+    left: 5vw;
+  }
+
+  .cardParent {
+    right: 16px;
+    bottom: 95px;
+    transform: scale(0.82);
+    transform-origin: bottom right;
+  }
+
+  .ctaWrap {
+    bottom: 24px;
+  }
+}

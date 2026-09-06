@@ -1,0 +1,39 @@
+.section {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: visible;
+  position: relative;
+  isolation: isolate;
+  padding: 8rem 6vw;
+  display: flex;
+  flex-direction: column;
+  z-index: 20; /* Higher than Solutions (10) */
+}
+
+.skewBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+}
+
+.bg {
+  width: 100%;
+  height: calc(100% + 800px);
+  background: #e0e0e0; /* Light gray */
+  transform: none;
+  will-change: transform;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  color: #342F89;
+  font-family: 'Boldonse', sans-serif;
+  font-size: 3rem;
+}

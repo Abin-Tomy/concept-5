@@ -149,77 +149,122 @@ export default function Hero() {
                 <p className={`${styles.mega} ${styles.megaMD}`}>{slide.line2}</p>
               </div>
 
-              {/* Mockup Glassmorphic Card — right bottom */}
+              {/* Glassmorphic Card styled with UnLtd Logo gradient tint & clean alignment */}
               <div
                 ref={el => { cardRefs.current[index] = el; }}
                 className={styles.cardParent}
               >
-                <div className={styles.mockupContainer}>
-                  {/* Main Scooped Card */}
-                  <div className={styles.mainCard}>
-                    {/* SVG Rim & Surface Lighting */}
-                    <svg viewBox="0 0 320 320" className={styles.cardSvg} aria-hidden="true">
-                      <defs>
-                        <linearGradient id={`rimGrad-${slide.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
-                          <stop offset="30%" stopColor="#ffffff" stopOpacity="0.45" />
-                          <stop offset="65%" stopColor="rgba(255,255,255,0.15)" />
-                          <stop offset="85%" stopColor="#ffffff" stopOpacity="0.8" />
-                          <stop offset="100%" stopColor="rgba(255,255,255,0.4)" />
-                        </linearGradient>
-                        <linearGradient id={`surfaceGrad-${slide.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="rgba(255, 255, 255, 0.16)" />
-                          <stop offset="35%" stopColor="rgba(255, 255, 255, 0.04)" />
-                          <stop offset="70%" stopColor="rgba(0, 0, 0, 0.35)" />
-                          <stop offset="100%" stopColor="rgba(255, 255, 255, 0.10)" />
-                        </linearGradient>
-                        <radialGradient id={`causticGrad-${slide.id}`} cx="35%" cy="30%" r="55%">
-                          <stop offset="0%" stopColor="rgba(255, 255, 255, 0.15)" />
-                          <stop offset="60%" stopColor="rgba(255, 255, 255, 0.02)" />
-                          <stop offset="100%" stopColor="transparent" />
-                        </radialGradient>
-                      </defs>
-                      <path
-                        d="M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z"
-                        fill={`url(#surfaceGrad-${slide.id})`}
-                        stroke={`url(#rimGrad-${slide.id})`}
-                        strokeWidth="1.5"
-                      />
-                      <path
-                        d="M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z"
-                        fill={`url(#causticGrad-${slide.id})`}
-                      />
-                    </svg>
+                {/* 3D container */}
+                <div className="relative w-[320px] h-[320px] text-white font-sans select-none group [transform-style:preserve-3d] transition-transform duration-500 ease-out hover:[transform:rotate3d(1,-1,0,12deg)_translateY(-4px)]">
+                  
+                  {/* Ambient glowing UnLtd Logo gradient orb behind glass (Royal Indigo to Cyan) */}
+                  <div
+                    className="absolute w-36 h-36 rounded-full top-[20%] right-[4%] bg-gradient-to-br from-[#342F89] via-[#252166] to-[#52B6E6] blur-[22px] opacity-70 pointer-events-none z-0 transition-transform duration-500 ease-out group-hover:scale-115 group-hover:opacity-90"
+                    aria-hidden="true"
+                  />
 
-                    {/* Content inside main card */}
-                    <div className={styles.mainCardBody}>
-                      {/* Top row: Active slide topic */}
-                      <div className={styles.topRow}>
-                        <span className={styles.slideTopic}>
-                          {slide.line1} {slide.line2.replace('.', '')}
+                  {/* Ambient glowing Cyan accent dot reflection (from UnLtd Logo) */}
+                  <div
+                    className="absolute w-12 h-12 rounded-full top-[10%] right-[12%] bg-[#52B6E6] blur-[14px] opacity-60 pointer-events-none z-0 transition-transform duration-500 ease-out group-hover:scale-125"
+                    aria-hidden="true"
+                  />
+
+                  {/* 3D Glass Surface Container with UnLtd Drop Shadow */}
+                  <div className="relative w-full h-full [transform-style:preserve-3d] drop-shadow-[0_15px_35px_rgba(0,0,0,0.32)] transition-all duration-300 ease-out group-hover:drop-shadow-[0_0_25px_rgba(82,182,230,0.45)]">
+                    
+                    {/* Main Scooped Glass Card */}
+                    <div
+                      className="absolute inset-0 w-[320px] h-[320px] bg-gradient-to-br from-[#342F89]/40 via-[#252166]/50 to-[#52B6E6]/25 backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)] overflow-hidden transition-all duration-300 ease-out border border-white/20 group-hover:border-[#52B6E6]/50"
+                      style={{
+                        clipPath: "path('M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z')"
+                      }}
+                    >
+                      {/* Specular glass shine sweep across card */}
+                      <div className="absolute -inset-full w-[200%] h-6 bg-white/20 blur-xl rotate-[45deg] pointer-events-none animate-[cardShine_9s_ease-in-out_infinite]" />
+
+                      {/* SVG Rim & Surface Lighting with UnLtd Logo gradient colors */}
+                      <svg viewBox="0 0 320 320" className="absolute inset-0 w-[320px] h-[320px] pointer-events-none z-[1]" aria-hidden="true">
+                        <defs>
+                          <linearGradient id={`rimGrad-${slide.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
+                            <stop offset="25%" stopColor="rgba(255,255,255,0.4)" />
+                            <stop offset="55%" stopColor="#52B6E6" stopOpacity="0.8" />
+                            <stop offset="80%" stopColor="#342F89" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#52B6E6" stopOpacity="0.5" />
+                          </linearGradient>
+                          <linearGradient id={`surfaceGrad-${slide.id}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#342F89" stopOpacity="0.45" />
+                            <stop offset="45%" stopColor="#252166" stopOpacity="0.55" />
+                            <stop offset="85%" stopColor="#1e1a52" stopOpacity="0.45" />
+                            <stop offset="100%" stopColor="#52B6E6" stopOpacity="0.25" />
+                          </linearGradient>
+                          <radialGradient id={`causticGrad-${slide.id}`} cx="20%" cy="15%" r="70%">
+                            <stop offset="0%" stopColor="rgba(255, 255, 255, 0.22)" />
+                            <stop offset="40%" stopColor="rgba(82, 182, 230, 0.14)" />
+                            <stop offset="75%" stopColor="rgba(52, 47, 137, 0.16)" />
+                            <stop offset="100%" stopColor="transparent" />
+                          </radialGradient>
+                        </defs>
+                        <path
+                          d="M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z"
+                          fill={`url(#surfaceGrad-${slide.id})`}
+                          stroke={`url(#rimGrad-${slide.id})`}
+                          strokeWidth="1.5"
+                        />
+                        <path
+                          d="M 32,4 L 288,4 A 28,28 0 0,1 316,32 L 316,218 A 20,20 0 0,1 296,238 L 196,238 C 176,238 162,248 146,268 C 130,288 120,306 98,306 L 32,306 A 28,28 0 0,1 4,278 L 4,32 A 28,28 0 0,1 32,4 Z"
+                          fill={`url(#causticGrad-${slide.id})`}
+                        />
+                      </svg>
+
+                      {/* Content inside main card - cleanly aligned and properly positioned */}
+                      <div
+                        className="absolute inset-0 flex flex-col justify-between z-[2] pointer-events-auto select-none"
+                        style={{ paddingLeft: '32px', paddingTop: '30px', paddingRight: '28px', paddingBottom: '26px' }}
+                      >
+                        {/* Top: Category Title */}
+                        <div>
+                          <h3 className="text-[1.4rem] font-semibold tracking-wide text-white uppercase leading-tight drop-shadow-sm font-sans">
+                            {slide.line1} {slide.line2.replace('.', '')}
+                          </h3>
+
+                          {/* Description with comfortable breathing room */}
+                          <p className="text-[12.5px] leading-[1.65] font-normal text-white/85 max-w-[250px] mt-3">
+                            {slide.desc}
+                          </p>
+                        </div>
+
+                        {/* Bottom-left: Brand indicator (fits cleanly to left of scooped notch) */}
+                        <div className="flex items-center gap-1.5 text-[10.5px] font-medium tracking-wider text-white/60 uppercase">
+                          <span className="text-[#52B6E6] font-semibold">UNLTD</span>
+                          <span className="text-white/30">•</span>
+                          <span>DEVICE</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Sub-Card Pill Badge with matching UnLtd Logo gradient */}
+                    <div
+                      className="absolute inset-0 w-[320px] h-[320px] bg-gradient-to-br from-[#342F89]/50 via-[#252166]/60 to-[#52B6E6]/30 backdrop-blur-[24px] [-webkit-backdrop-filter:blur(24px)] overflow-hidden transition-all duration-300 ease-out border border-white/20 group-hover:border-[#52B6E6]/50"
+                      style={{
+                        clipPath: "path('M 205,250 L 296,250 A 16,16 0 0,1 316,270 L 316,286 A 20,20 0 0,1 296,306 L 178,306 A 18,18 0 0,1 162,292 C 158,282 165,274 175,264 L 192,254 A 14,14 0 0,1 205,250 Z')"
+                      }}
+                    >
+                      <svg viewBox="0 0 320 320" className="absolute inset-0 w-[320px] h-[320px] pointer-events-none z-[1]" aria-hidden="true">
+                        <path
+                          d="M 205,250 L 296,250 A 16,16 0 0,1 316,270 L 316,286 A 20,20 0 0,1 296,306 L 178,306 A 18,18 0 0,1 162,292 C 158,282 165,274 175,264 L 192,254 A 14,14 0 0,1 205,250 Z"
+                          fill={`url(#surfaceGrad-${slide.id})`}
+                          stroke={`url(#rimGrad-${slide.id})`}
+                          strokeWidth="1.5"
+                        />
+                      </svg>
+                      <div className="absolute left-[165px] top-[250px] w-[150px] h-[56px] flex items-center justify-center z-[2] pointer-events-none">
+                        <span className="font-mono text-[13px] font-bold tracking-widest text-white drop-shadow-sm">
+                          {slide.id} / 05
                         </span>
                       </div>
-
-                      {/* Main description */}
-                      <div className={styles.descSection}>
-                        <p className={styles.cardDesc}>{slide.desc}</p>
-                      </div>
                     </div>
-                  </div>
 
-                  {/* Sub-Card (Bottom-right pill badge with slide counter) */}
-                  <div className={styles.subCard}>
-                    <svg viewBox="0 0 320 320" className={styles.cardSvg} aria-hidden="true">
-                      <path
-                        d="M 205,250 L 296,250 A 16,16 0 0,1 316,270 L 316,286 A 20,20 0 0,1 296,306 L 178,306 A 18,18 0 0,1 162,292 C 158,282 165,274 175,264 L 192,254 A 14,14 0 0,1 205,250 Z"
-                        fill={`url(#surfaceGrad-${slide.id})`}
-                        stroke={`url(#rimGrad-${slide.id})`}
-                        strokeWidth="1.5"
-                      />
-                    </svg>
-                    <div className={styles.subCardBody}>
-                      <span className={styles.subCardText}>{slide.id} / 05</span>
-                    </div>
                   </div>
                 </div>
               </div>

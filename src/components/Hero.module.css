@@ -65,32 +65,49 @@
   pointer-events: none;
 }
 
-/* LEFT: Heading */
-.headingContent {
+/* LEFT: Static Content */
+.staticLeftContent {
   position: absolute;
-  top: 38%;
-  left: 5vw;
+  top: 42%;
+  left: 4vw;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  will-change: opacity, transform;
+  gap: 16px;
+  z-index: 30;
+  pointer-events: auto;
 }
 
-.mega {
-  display: block;
-  /* Bebas Neue — premium condensed display, used by luxury/tech brands globally */
-  font-family: 'Bebas Neue', 'Syne', sans-serif;
-  font-weight: 400; /* Bebas Neue is single-weight, always looks bold */
-  line-height: 0.95; /* Tight for display */
-  letter-spacing: 0.04em; /* Bebas Neue looks best with slight tracking */
-  color: #ffffff;
+.thinPremiumTitle {
+  font-family: 'Playfair Display', 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 75px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #000000;
   margin: 0;
-  padding: 0;
-  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.40);
+  display: flex;
+  flex-direction: column;
+  text-shadow: none;
 }
 
-.megaMD {
-  font-size: clamp(52px, 7.5vw, 120px); /* Bebas Neue is condensed so can go bigger */
+.titleLine1 {
+  margin-left: 40px;
+}
+
+.smallDesc {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: clamp(14px, 1.2vw, 16px);
+  color: #000000;
+  line-height: 1.6;
+  max-width: 360px;
+  margin: 0;
+}
+
+.ctaLeftWrap {
+  margin-top: 12px;
+  align-self: flex-start;
 }
 
 /* ────────────────────────────────────────────
@@ -100,8 +117,8 @@
 
 .cardParent {
   position: absolute;
-  right: 5vw;
-  bottom: 12vh;
+  right: 2vw;
+  bottom: 8vh;
   width: 320px;
   height: 320px;
   perspective: 1200px;
@@ -111,19 +128,11 @@
 }
 
 /* ── CTA Pill ── */
-.ctaWrap {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: auto;
-}
-
 .ctaPill {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 15px 34px;
+  gap: 8px;
+  padding: 13px 26px;
   border-radius: 9999px;
   border: 1px solid rgba(52, 47, 137, 0.40);
   background: rgba(52, 47, 137, 0.60);
@@ -158,9 +167,13 @@
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  .headingContent {
-    top: 22%;
+  .staticLeftContent {
+    top: 32%;
     left: 5vw;
+  }
+  
+  .titleLine1 {
+    margin-left: 24px;
   }
 
   .cardParent {
@@ -168,9 +181,5 @@
     bottom: 95px;
     transform: scale(0.82);
     transform-origin: bottom right;
-  }
-
-  .ctaWrap {
-    bottom: 24px;
   }
 }

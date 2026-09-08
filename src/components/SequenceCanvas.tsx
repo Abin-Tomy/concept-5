@@ -27,7 +27,7 @@ interface SequenceCanvasProps {
 }
 
 export default function SequenceCanvas({
-  frameCount = 150,
+  frameCount = 366,
   framesPath,
   ext            = 'jpg',
   scrollTriggerEl,

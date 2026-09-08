@@ -63,15 +63,14 @@ const holdDurations = [1.7, 1.3, 1.2, 3.0, 1.2];
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRefs = useRef<(HTMLDivElement | null)[]>([]);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       // Slide 0 visible, rest hidden
-      gsap.set([headingRefs.current[0], cardRefs.current[0]], { autoAlpha: 1, y: 0 });
+      gsap.set(cardRefs.current[0], { autoAlpha: 1, y: 0 });
       for (let i = 1; i < TOTAL; i++) {
-        gsap.set([headingRefs.current[i], cardRefs.current[i]], { autoAlpha: 0, y: 60 });
+        gsap.set(cardRefs.current[i], { autoAlpha: 0, y: 60 });
       }
 
       const tl = gsap.timeline();
@@ -79,18 +78,17 @@ export default function Hero() {
       for (let i = 0; i < TOTAL - 1; i++) {
         tl.to({}, { duration: holdDurations[i] });
 
-        tl.to([headingRefs.current[i], cardRefs.current[i]], {
+        tl.to(cardRefs.current[i], {
           autoAlpha: 0,
           y: -40,
           duration: 0.7,
           ease: 'power3.inOut',
-          stagger: 0.04,
         });
 
         tl.fromTo(
-          [headingRefs.current[i + 1], cardRefs.current[i + 1]],
+          cardRefs.current[i + 1],
           { autoAlpha: 0, y: 60 },
-          { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.04 },
+          { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' },
           '>-0.1'
         );
       }
@@ -123,7 +121,7 @@ export default function Hero() {
         <Navigation />
         <div className={styles.canvasWrap}>
           <SequenceCanvas
-            frameCount={150}
+            frameCount={302}
             framesPath="/frames"
             ext="jpg"
             scrollTriggerEl="#hero-section"
@@ -136,18 +134,27 @@ export default function Hero() {
 
       {/* ── UI overlay — sits OUTSIDE heroInner so backdrop-filter works ── */}
       <div className={styles.uiOverlay}>
+        
+        {/* ── Left Static Content ── */}
+        <div className={styles.staticLeftContent}>
+          <h1 className={styles.thinPremiumTitle}>
+            <span className={styles.titleLine1}>ADVANCED</span>
+            <span className={styles.titleLine2}>SMART</span>
+          </h1>
+          <p className={styles.smallDesc}>
+            Next-generation smart technology solutions for modern retail, commercial, and hospitality spaces.
+          </p>
+          <div className={styles.ctaLeftWrap}>
+            <a href="#solutions" className={styles.ctaPill}>
+              <span>Explore Collection</span>
+              <ArrowUpRight size={13} strokeWidth={2.5} className={styles.ctaArrowIcon} />
+            </a>
+          </div>
+        </div>
+
         {slides.map((slide, index) => {
           return (
             <div key={slide.id} className={styles.slideWrapper}>
-
-              {/* Heading — left side */}
-              <div
-                ref={el => { headingRefs.current[index] = el; }}
-                className={styles.headingContent}
-              >
-                <p className={`${styles.mega} ${styles.megaMD}`}>{slide.line1}</p>
-                <p className={`${styles.mega} ${styles.megaMD}`}>{slide.line2}</p>
-              </div>
 
               {/* Glassmorphic Card styled with UnLtd Logo gradient tint & clean alignment */}
               <div
@@ -271,14 +278,6 @@ export default function Hero() {
             </div>
           );
         })}
-
-        {/* CTA pill */}
-        <div className={styles.ctaWrap}>
-          <a href="#solutions" className={styles.ctaPill}>
-            <span>Explore Solutions</span>
-            <ArrowUpRight size={13} strokeWidth={2.5} className={styles.ctaArrowIcon} />
-          </a>
-        </div>
       </div>
     </section>
   );

@@ -49,7 +49,7 @@ const slides = [
     subtitle: 'LS-01',
     desc:     'Ultra-high definition indoor and outdoor LED video walls with seamless modular panels, high refresh rates, and turnkey installation.',
     showFrom:  0.05,
-    showUntil: 0.18,
+    showUntil: 0.50,
   },
   {
     id:       '02',
@@ -57,8 +57,8 @@ const slides = [
     line2:    'SIGNAGE.',
     subtitle: 'FS-02',
     desc:     'Commercial-grade digital floor stand displays with ultra-slim profiles, high brightness, and centralized content scheduling.',
-    showFrom:  0.18,
-    showUntil: 0.38,
+    showFrom:  0.50,
+    showUntil: 0.60,
   },
   {
     id:       '03',
@@ -66,8 +66,8 @@ const slides = [
     line2:    'KIOSK.',
     subtitle: 'IK-03',
     desc:     'Touchscreen kiosks and self-ordering terminals engineered for intuitive customer self-service, wayfinding, and engagement.',
-    showFrom:  0.40,
-    showUntil: 0.58,
+    showFrom:  0.60,
+    showUntil: 0.74,
   },
   {
     id:       '04',
@@ -75,8 +75,8 @@ const slides = [
     line2:    'SYSTEM.',
     subtitle: 'PS-04',
     desc:     'All-in-one smart retail point-of-sale systems with barcode scanners, thermal receipt printers, ERP integration, and queue management.',
-    showFrom:  0.58,
-    showUntil: 0.80,
+    showFrom:  0.74,
+    showUntil: 0.87,
   },
   {
     id:       '05',
@@ -84,10 +84,22 @@ const slides = [
     line2:    'LOCK.',
     subtitle: 'SL-05',
     desc:     'Advanced biometric and digital smart locks featuring keyless security, remote access control, and seamless smart automation.',
-    showFrom:  0.80,
+    showFrom:  0.87,
     showUntil: 1.00,
   },
 ];
+
+const getSlideIndex = (progress: number): number => {
+  for (let i = 0; i < slides.length; i++) {
+    if (progress >= slides[i].showFrom && progress < slides[i].showUntil) {
+      return i;
+    }
+  }
+  if (progress >= slides[slides.length - 1].showFrom) {
+    return slides.length - 1;
+  }
+  return 0;
+};
 
 /* ─── Component ──────────────────────────────────────────────────────────── */
 
@@ -365,13 +377,7 @@ export default function Hero() {
               }
 
               // Roll out left text per slide (0 to 4)
-              let slideIdx = 0;
-              if (self.progress < 0.18)      slideIdx = 0;
-              else if (self.progress < 0.38) slideIdx = 1;
-              else if (self.progress < 0.58) slideIdx = 2;
-              else if (self.progress < 0.80) slideIdx = 3;
-              else                           slideIdx = 4;
-
+              const slideIdx = getSlideIndex(self.progress);
               updateLeftText(slideIdx);
             }
           }
@@ -521,13 +527,7 @@ export default function Hero() {
     leftContainerRef.current?.setAttribute('data-theme', nextTheme);
 
     if (p >= 0.05) {
-      let slideIdx = 0;
-      if (p < 0.18)      slideIdx = 0;
-      else if (p < 0.38) slideIdx = 1;
-      else if (p < 0.58) slideIdx = 2;
-      else if (p < 0.80) slideIdx = 3;
-      else               slideIdx = 4;
-
+      const slideIdx = getSlideIndex(p);
       updateLeftText(slideIdx);
     }
     updateCards(p);

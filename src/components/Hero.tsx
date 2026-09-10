@@ -26,10 +26,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ─── Constants ──────────────────────────────────────────────────────────── */
 
-/** The intro video (concept-5-final.mp4) plays from 0 → ~8 s. */
-const VIDEO_DURATION_S = 24.747;   // full clip duration (from ffprobe)
-const SCRUB_START_S    = 8;        // hand-off: video stops, canvas begins
-const SCRUB_DUR_S      = VIDEO_DURATION_S - SCRUB_START_S; // 16.747 s
+/** The intro video (latest-concept-5.mp4) plays from 0 → ~5 s. */
+const VIDEO_DURATION_S = 20.761;   // full clip duration (from ffprobe)
+const SCRUB_START_S    = 5;        // hand-off: video stops, canvas begins
+const SCRUB_DUR_S      = VIDEO_DURATION_S - SCRUB_START_S; // 15.761 s
 
 /** Total scroll height pinned for the hero (px). */
 const HERO_SCROLL_PX = 4500;
@@ -279,8 +279,8 @@ export default function Hero() {
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
 
-    // The canvas sequence starts at second 8 of the video (frame 0 of the extracted
-    // sequence). Since the video loops within 0–8s, we always start the canvas at frame 0.
+    // The canvas sequence starts at second 5 of the video (frame 0 of the extracted
+    // sequence). Since the video loops within 0–5s, we always start the canvas at frame 0.
     const frameIdx = 0;
 
     // Draw that frame immediately onto canvas before fading in
@@ -356,8 +356,8 @@ export default function Hero() {
               }
 
               // Adaptive text theme based on background brightness
-              // Background is dark in intro and frames 1–34 (progress < 0.11), then light showroom wall
-              const isDark = self.progress < 0.11;
+              // In latest-concept-5.mp4, all scrub frames (progress >= 0.05) are light showroom wall (lum > 140)
+              const isDark = self.progress < 0.05;
               const nextTheme = isDark ? 'dark' : 'light';
               if (currentTheme.current !== nextTheme) {
                 currentTheme.current = nextTheme;
@@ -435,7 +435,7 @@ export default function Hero() {
       video.removeEventListener('timeupdate', timeUpdateHandler.current);
     }
 
-    // Restart video at 0 with the 0–8s loop
+    // Restart video at 0 with the 0–5s loop
     video.style.display = 'block';
     video.currentTime   = 0;
     void video.play();
@@ -515,7 +515,7 @@ export default function Hero() {
     }
 
     // Update theme & left text based on current progress
-    const isDark = p < 0.11;
+    const isDark = p < 0.05;
     const nextTheme = isDark ? 'dark' : 'light';
     currentTheme.current = nextTheme;
     leftContainerRef.current?.setAttribute('data-theme', nextTheme);
@@ -599,7 +599,7 @@ export default function Hero() {
     // ── Start batch loading frames
     loadBatch(0);
 
-    // ── Video plays first 8 s in a loop until user scrolls
+    // ── Video plays first 5 s in a loop until user scrolls
     const onTimeUpdate = () => {
       const vid = videoRef.current;
       if (vid && vid.currentTime >= SCRUB_START_S) {

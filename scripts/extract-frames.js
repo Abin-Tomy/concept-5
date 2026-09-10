@@ -13,18 +13,18 @@ const ffmpegPath = require('ffmpeg-static');
 const path = require('path');
 const fs = require('fs');
 
-const VIDEO_PATH  = 'C:/Users/abint/Desktop/UNLTD-project/data-assets/concept-5-final.mp4';
+const VIDEO_PATH  = 'C:/Users/abint/Desktop/UNLTD-project/data-assets/latest-concept-5.mp4';
 const OUTPUT_DIR  = path.resolve(__dirname, '../public/frames');
 
 /** Video intro portion played by the <video> element (seconds) */
 const INTRO_START = 0;
-const INTRO_END   = 8;          // hand-off point: video → canvas
-const VIDEO_TOTAL = 24.747;     // full video duration (from ffprobe)
+const INTRO_END   = 5;          // hand-off point: video → canvas (first 5s intro)
+const VIDEO_TOTAL = 20.761;     // full video duration (from ffprobe)
 
 /** Scroll-scrub range */
 const SCRUB_START  = INTRO_END;
 const SCRUB_END    = VIDEO_TOTAL;
-const SCRUB_DUR    = SCRUB_END - SCRUB_START;  // ~16.75 s
+const SCRUB_DUR    = SCRUB_END - SCRUB_START;  // ~15.761 s
 
 /** How many frames to extract for the scroll sequence.
  *  ~18 fps over 16.75 s ≈ 300 frames — keeps payload ~= current set. */
